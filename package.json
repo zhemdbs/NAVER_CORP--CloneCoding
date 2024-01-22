@@ -1,7 +1,7 @@
 {
   "name": "naver_corp--clonecoding",
   "version": "1.0.0",
-  "description": "> 제작기간 : 2024.01.20 ~ 2024.02.29   \r 참여인원 : 2",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
