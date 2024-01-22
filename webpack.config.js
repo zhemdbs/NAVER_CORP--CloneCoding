@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.js',
+  entry: './src/index.js',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
@@ -39,6 +40,11 @@ module.exports = {
       },
       hash: true,
       template: './src/index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        {from: 'src'}
+      ]
     }),
     new BrowserSyncPlugin({
       host: 'localhost',
