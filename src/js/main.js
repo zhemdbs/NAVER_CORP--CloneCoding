@@ -1,1 +1,7 @@
-console.log('test2222');
+// sass import
+import '../css/naver.scss';
+
+// JS Import
+import '../views/include/script.html';
+
+console.log('test');

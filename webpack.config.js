@@ -1,56 +1,60 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+  entry: {
+    app: './src/js/main.js'
   },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  output: {
+    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist')
   },
   devServer: {
-    hot: true,
     static: {
-      directory: path.join(__dirname, 'dist')
-    }
-  },
-  watchOptions: {
-    poll: true,
-    ignored: ['node_modules', 'dist']
+      directory: path.resolve(__dirname, 'dist')
+    },
+    port: 2000,
+    open: true,
+    hot: true
   },
   module: {
     rules: [
       {
-        exclude: /node_modules/,
-        test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.html$/i,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.tsx?$/i,
+        use: ['ts-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        loader: 'file-loader',
+        options: {
+          publicPath: './',
+          name: '[name].[ext]?[hash]'
+        }
       }
     ]
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      minify: {
-        collapseWhitespace: true //빈칸 제거
-      },
-      hash: true,
-      template: './src/index.html'
+      title: 'NAVER',
+      filename: 'index.html',
+      template: './src/index.html',
+      favicon: './src/favicon.ico'
     }),
-    new CopyPlugin({
-      patterns: [
-        {from: 'src'}
-      ]
-    }),
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: 2000,
-      files: ['./dist/*.html'], //해당 경로 내 html 파일이 자동으로 동기화 (이 부분이 없으면 html파일 변경사항은 자동 동기화 안됨)
-      server: { baseDir: ['dist'] } // server의 Base 디렉토리를 dist로 지정
-    })
+    new CleanWebpackPlugin()
   ]
 };
