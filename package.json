@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "dev": "webpack serve --open"
+    "build": "webpack build --mode=production",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.17",
     "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.10.0",
     "file-loader": "^6.2.0",
     "html-loader": "^5.0.0",

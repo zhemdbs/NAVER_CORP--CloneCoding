@@ -4,4 +4,4 @@ import '../css/naver.scss';
 // JS Import
 import '../views/include/script.html';
 
-console.log('test');
+console.log('main test');

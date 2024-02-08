@@ -1,4 +1,4 @@
 // JS Import
-// import '../js/main.js';
+import '../js/main.js';
 
-console.log('test');
+console.log('index test');
